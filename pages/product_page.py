@@ -40,3 +40,11 @@ class ProductPage(BasePage):
         self.add_to_basket_button()
         basket_total = self.get_basket_total()
         assert product_price == basket_total, 'Basket total is not equal to product price'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message should disappear, but it is presented"
