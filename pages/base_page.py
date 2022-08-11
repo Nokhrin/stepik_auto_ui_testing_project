@@ -1,5 +1,4 @@
 import math
-
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,10 +7,11 @@ from .locators import BasePageLocators
 
 
 class BasePage:
+    """parent class for all pages"""
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
-        # self.browser.implicitly_wait(timeout)
+        self.browser.implicitly_wait(timeout)
 
     def get_current_url(self):
         return self.browser.current_url
@@ -31,7 +31,7 @@ class BasePage:
             return False
         return True
 
-    def is_not_element_present(self, how, what, timeout=4):
+    def is_not_element_present(self, how, what, timeout=10):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
